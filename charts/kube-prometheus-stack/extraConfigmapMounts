@@ -1,0 +1,5 @@
+    
+    - name: istio-dashboards
+      mountPath: /tmp/dashboards
+      configMap: grafana-dashboard-istio
+      readOnly: false
