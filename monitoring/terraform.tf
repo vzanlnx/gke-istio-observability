@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "hash-state-env"
-    prefix = "obs-k8s"
+    bucket = "my-bucket"
+    prefix = "demo-obs-k8s"
   }
 }
