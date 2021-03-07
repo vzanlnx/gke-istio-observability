@@ -14,27 +14,27 @@
 ## Sumário:
 
   - [1. Instalação do Cluster](#1-instalação-do-cluster)
-  - [2. Configuraçao da Stack de Observability](#2-configuraçao-da-stack-de-observability)
-  - [3. Configuraçao do Istio (com Jaeger e Kiali)](#3-configuraçao-do-istio-com-jaeger-e-kiali)
+  - [2. Configuração da Stack de Observability](#2-configuraçao-da-stack-de-observability)
+  - [3. Configuração do Istio (com Jaeger e Kiali)](#3-configuraçao-do-istio-com-jaeger-e-kiali)
   - [4. Instalação da aplicação bookapp](#4-instalação-da-aplicação-bookapp)
   - [5. Acesso](#5-acesso)
   - [6. Comentários e Melhorias](#6-comentários-e-melhorias)
 
 ---
 
-  | <h2> :information_source: | <h6> Todos os códigos que estão em terraform, têm seu arquivo de estado armazenado em um bucket privado, o uso apropriado exige que seja declarado um bucket acessível pela conta autenticadano arquivo `terraform.tf`. |
+  | <h2> :information_source: | <h6> Todos os códigos que estão em terraform, têm seu arquivo de estado armazenado em um bucket privado, o uso apropriado exige que seja declarado um bucket acessível pela conta autenticada no arquivo `terraform.tf`. |
    :-:|:-
 
   ## 1. Instalação do Cluster
 
   No diretório [./cluster](./cluster) há um código em terraform responsável pelo provisionamento do cluster no Google Cloud.
 
-  Além do cluster GKE, o codigo também provisiona através dos modulos, as dependências necessárias para o seu funcionamento correto.
+  Além do cluster GKE, o código também provisiona através dos módulos, as dependências necessárias para o seu funcionamento correto.
 
   Alguns recursos são nomeados de acordo com o `workspace` do terraform.
 
 
-| <h2> :warning: | <h6> É necessário providenciar a variável `project_id` e `region` via linha de comando ou diretamente no arquivo `variables.tf`. Além de definir o bucket para o state em `terraform.tf` |
+| <h2> :warning: | <h6> É necessário providenciar a variável `project_id` e `region` via linha de comando ou diretamente no arquivo `variables.tf`. Além de definir o bucket para o state em `terraform.tf`. |
  :-:|:-
 
   - Para provisionar o cluster:
@@ -50,15 +50,15 @@
 
 ---
 
-  ## 2. Configuraçao da Stack de Observability
+  ## 2. Configuração da Stack de Observability
 
  No diretório [./monitoring](./monitoring) está o código terraform que provisiona o Grafana, Loki, Prometheus Operator e suas integrações através de charts locais.
 
  - o chart `kube-prometheus-stack` teve o arquivo `values.yaml` diretamente customizado.
  - Já no chart `loki-stack`, o arquivo `values.yaml` foi configurado através de template file, apenas como fim de mostrar a possibilidade de gerenciar a configuração de todos os parâmetros de um chart através de variáveis.
- - Há também um resource de config_map que automatiza o deploy de novas dashboards no grafana, uma forma interessante de ter o controle sobre a organização dos views no grafana. Nessa caso são configurados os dashboards referente ao Istio
+ - Há também um resource de config_map que automatiza o deploy de novas dashboards no grafana, uma forma interessante de ter o controle sobre a organização dos views no grafana. Nesse caso são configurados os dashboards referente ao Istio.
 
-| <h2> :warning: | <h6> É necessário providenciar a variável `project_id` e `region` via linha de comando ou diretamente no arquivo `variables.tf`. Além de definir o bucket para o state em `terraform.tf` |
+| <h2> :warning: | <h6> É necessário providenciar a variável `project_id` e `region` via linha de comando ou diretamente no arquivo `variables.tf`. Além de definir o bucket para o state em `terraform.tf`. |
  :-:|:-
 
   - Para provisionar a stack:
@@ -68,7 +68,7 @@
   terraform apply
   ```
 
- ## 3. Configuraçao do Istio (com Jaeger e Kiali)
+ ## 3. Configuração do Istio (com Jaeger e Kiali)
 
   É necessário ter o commandline do [Istio 1.9](https://istio.io/latest/docs/setup/getting-started/) instalado na máquina para a configuração do service mesh.
 
@@ -78,7 +78,7 @@
   kubectl label namespace default istio-injection=enabled
   ```
 
- - Instalação do serviço através do `istioctl`
+ - Instalação do serviço através do `istioctl`:
 
  ```shell
  istioctl install --set profile=demo -y
@@ -104,7 +104,7 @@ kubectl apply -f istio-monitoring/
 
 kubectl apply -f bookapp/ -n default 
 ```
-Nesse momento a applicação já deve estar funcional e acessível através do `external ip` do `istio-ingressgateway`
+Nesse momento a aplicação já deve estar funcional e acessível através do `external ip` do `istio-ingressgateway`.
 
 ---
 
@@ -128,7 +128,7 @@ Através do Kiali, é possível realizar o tracing das aplicações além de col
 
 ## 6. Comentários e Melhorias
 
-- O Prometheus Operator está cofigurado para obter as métricas do prometheus do Istio via federação, com regras específicas de scrapping e rules. Futuramente, poderia ser melhor configurar o scrape direto dos pods e eliminar a necessidade do federate.
+- O Prometheus Operator está configurado para obter as métricas do prometheus do Istio via federação, com regras específicas de scrapping e rules. Futuramente, pode ser melhor configurar o scrape direto dos pods e eliminar a necessidade do federate.
 
 - O Loki está configurado com seus próprios nodeports (builtin) de fluentbit monitorando os logs sendo que o cluster GKE já possui nodeports de fluentbit também. Talvez subir o cluster e o loki sem os nodeports e configurar separadamente o coletor de logs seja uma opção mais eficiente e de menor custo.
 
