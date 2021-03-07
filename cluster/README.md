@@ -1,3 +1,10 @@
+# Cluster Provisioning
+
+
+| <h2> :warning: | <h6> É necessário providenciar a variável `project_id` e `region` via linha de comando ou diretamente no arquivo `variables.tf`. Além de definir o bucket para o state em `terraform.tf` |
+ :-:|:-
+
+
 ## Requirements
 
 No requirements.
@@ -27,8 +34,8 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| project\_id | Unique project ID where all objects wiil be created | `string` | `"hash-306616"` | no |
-| region | Region where VMs will be deployed | `string` | `"us-east1"` | no |
+| project\_id | Unique project ID where all objects wil be created | `string` | `"my-project"` | yes |
+| region | Region where cluster will be deployed | `string` | `"us-east1"` | yes |
 
 ## Outputs
 

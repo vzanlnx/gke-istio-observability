@@ -3,7 +3,7 @@
 variable "project_id" {
   type        = string
   description = "Unique project ID where all objects wiil be created"
-  default     = "hash-306616"
+  default     = "my-project"
 }
 
 variable "region" {
