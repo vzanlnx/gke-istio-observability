@@ -14,8 +14,8 @@
 ## Sumário:
 
   - [1. Instalação do Cluster](#1-instalação-do-cluster)
-  - [2. Configuração da Stack de Observability](#2-configuraçao-da-stack-de-observability)
-  - [3. Configuração do Istio (com Jaeger e Kiali)](#3-configuraçao-do-istio-com-jaeger-e-kiali)
+  - [2. Configuração da Stack de Observability](#2-configuração-da-stack-de-observability)
+  - [3. Configuração do Istio (com Jaeger e Kiali)](#3-configuração-do-istio-com-jaeger-e-kiali)
   - [4. Instalação da aplicação bookapp](#4-instalação-da-aplicação-bookapp)
   - [5. Acesso](#5-acesso)
   - [6. Comentários e Melhorias](#6-comentários-e-melhorias)
