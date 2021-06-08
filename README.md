@@ -10,7 +10,7 @@
 - [Loki](https://grafana.com/oss/loki/)
 - [Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator)
 
-Also, this demo is made using the [Istio Bookinfo app example](https://istio-releases.github.io/v0.1/docs/samples/bookinfo.html).
+Also, this demo was made using the [Istio Bookinfo app example](https://istio-releases.github.io/v0.1/docs/samples/bookinfo.html).
 
 ---
 ## Summary:
@@ -29,11 +29,11 @@ Also, this demo is made using the [Istio Bookinfo app example](https://istio-rel
 
   ## 1. Cluster Install
 
-  Inside [./cluster](./cluster) directory, there is terraform code to provisioning a GKE cluster in Google Cloud and all dependencies related.
+  Inside [./cluster](./cluster) directory, there is a terraform code to provisioning a GKE cluster in and all dependencies related.
   
   Some resources are named acording to workspace name from terraform.
 
-| <h2> :warning: | <h6> It's necessary to provide `project_id` and `region` variables through commandline or using the `variables.tf' file. And don't forget to declare where your state file will be stored in `terraform.tf`. |
+| <h2> :warning: | <h6> It's necessary to provide `project_id` and `region` variables through commandline or using the `variables.tf` file. And don't forget to declare where your state file will be stored in `terraform.tf`. |
  :-:|:-
 
   - To create the cluster:
@@ -44,7 +44,7 @@ Also, this demo is made using the [Istio Bookinfo app example](https://istio-rel
   terraform apply
   ```
 
-  - after created, use the suggested commandline from ouput `gcloud_credentials_command` to update your kube_config configuration and be able to authenticate in your cluster.
+  - after created, use the suggested command line from ouput `gcloud_credentials_command` to update your kube_config configuration and be able to authenticate in your cluster.
 
 
 ---
@@ -52,13 +52,13 @@ Also, this demo is made using the [Istio Bookinfo app example](https://istio-rel
   ## 2. Observability Stack
   
  
-  Using the [./monitoring](./monitoring), we see the terraform code which is responsible to configure the following tools: Grafana, Loki, Prometheus Operator and some integrations through local helm charts
+  Using the [./monitoring](./monitoring) directory, we see the terraform code which is responsible to configure the following tools: Grafana, Loki, Prometheus Operator and some integrations through local helm charts
   
   - The `kube-prometheus-stack` was configured directly using the `values.yaml` file;
-  - The `loki-stack, was configured through a template file in terraform, in order to show the possibility of manage all configuration parameters from external variables;
-  - Also, there is a config_map resource which automate grafana dashboards, anm interesting way of controlling views in grafana as a code. In this case, we are configuring some istio dashboards.
+  - The `loki-stack`, was configured through a template file in terraform, in order to show the possibility of manage all configuration parameters from external variables;
+  - Also, there is a config_map resource which automate grafana dashboards, an interesting way of controlling views in grafana as a code. In this case, we are configuring some istio dashboards.
 
-| <h2> :warning: | <h6> It's necessary to provide `project_id` and `region` variables through commandline or using the `variables.tf' file. And don't forget to declare where your state file will be stored in `terraform.tf`. |
+| <h2> :warning: | <h6> It's necessary to provide `project_id` and `region` variables through commandline or using the `variables.tf` file. And don't forget to declare where your state file will be stored in `terraform.tf`. |
  :-:|:-
 
   - to setup the obs stack:
@@ -70,7 +70,7 @@ Also, this demo is made using the [Istio Bookinfo app example](https://istio-rel
 
  ## 3. Setup Istio (with Jaeger and Kiali)
 
-  It's necessary to install the commandline from [Istio 1.9](https://istio.io/latest/docs/setup/getting-started/) in order to setup te service mesh structure.
+  It's necessary to install the command line from [Istio 1.9](https://istio.io/latest/docs/setup/getting-started/) in order to setup te service mesh structure.
   
  - The namespaces managed by Istio, should have the following labels:
 
@@ -98,7 +98,7 @@ kubectl apply -f istio-monitoring/
 The app manifests are available in [./bookapp](./bookapp) directory. The images were locally built and published on GCR.
 
 ```shell
-# use -n default in order to deploy in the correct namespace
+# use -n default parameter in order to deploy in the correct namespace
   
 kubectl apply -f bookapp/ -n default 
 ```
